@@ -21,7 +21,8 @@ CREATE TABLE songs (
     name TEXT NOT NULL,
     album_id INTEGER REFERENCES albums(id),
     genre TEXT,
-    rating INTEGER CHECK (rating BETWEEN 0 AND 10)
+    rating INTEGER CHECK (rating BETWEEN 0 AND 10),
+    mood TEXT
 );
 
 CREATE TABLE song_artists(
