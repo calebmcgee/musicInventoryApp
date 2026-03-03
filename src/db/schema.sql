@@ -6,7 +6,7 @@ SET search_path TO public;
 
 CREATE TABLE artists (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
     city TEXT NOT NULL
 );
 

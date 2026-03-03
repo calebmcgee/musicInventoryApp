@@ -9,6 +9,39 @@
 <body>
     <h1><%= title %></h1>
     <%- include('partials/navbar'); %>
+    <%- include('partials/errors') %>
+    <div>
+        <form action="/artists/createArtist" method="POST">
+            <div class="labelDiv">
+                <label for="name">Artist</label>
+                <input name="name" type="text">
+            </div>
+            <div class="labelDiv">
+                <label for="city">City</label>
+                <input name="city" type="text">
+            </div>
+            <button type="submit">Create New Artist</button>
+        </form>
+    </div>
 
+    <h2>Artist List</h2>
+    <div class="listContainer">
+        <% if(artists) { %>
+            <ul class="list">
+                <% artists.forEach(artist => { %>
+                    <li class="artistCard">
+                        <p>Artist: <%= artist.name %></p>
+                        <p>Area: <%= artist.city %></p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
+    </div>
+
+    <div>
+        <form action="/artists/deleteAllArtists" method="POST">
+            <button type="submit" onsubmit="return confirm('Are you sure you want to delete all artists?');">Delete All Artists</button>
+        </form>
+    </div>
 </body>
 </html>

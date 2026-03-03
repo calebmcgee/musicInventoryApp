@@ -8,13 +8,15 @@ const albumsRouter = require('./routes/albumsRouter');
 const app = express();
 const PORT = 3000;
 
-//Serve static assets and Set views
+// Serve static assets and Set views
 const assetsPath = path.join(__dirname, "/public");
 app.use(express.static(assetsPath));
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
+// Parse form data
+app.use(express.urlencoded({extended: true}));
 
-//Middleware
+// Middleware
 app.use("/", indexRouter);
 app.use("/songs", songsRouter);
 app.use("/artists", artistsRouter);

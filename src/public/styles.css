@@ -11,3 +11,19 @@
     display: flex;
     justify-content: space-around;
 }
+
+/* Display Containers */
+.listContainer {
+    padding: 10px;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+/* Display Cards */
+.artistCard {
+    border: 1px solid black;
+    display: flex;
+    gap: 20px;
+}
