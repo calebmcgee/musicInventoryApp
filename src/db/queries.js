@@ -24,6 +24,11 @@ async function deleteArtist(id){
     await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);
 }
 
+async function getArtist(id){
+    const { rows } = await pool.query(`SELECT * FROM artists WHERE id = ($1)`, [id]);
+    return rows[0];
+}
+
 //Albums 
 async function getAllAlbums(){
     const { rows } = await pool.query("SELECT * FROM albums");
@@ -36,6 +41,7 @@ module.exports = {
     getAllSongs,
     createArtist,
     deleteAllArtists,
-    deleteArtist
+    deleteArtist,
+    getArtist
 };
 

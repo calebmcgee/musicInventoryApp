@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <h1><%= title %></h1>
@@ -33,6 +33,10 @@
                     <li class="artistCard">
                         <p>Artist: <%= artist.name %></p>
                         <p>Area: <%= artist.city %></p>
+                        <a href="/artists/<%= artist.id %>">View Info</a>
+                        <form action="/artists/delete/<%= artist.id %>" method="POST">
+                            <button type="submit" onsubmit="return confirm('Are you sure you want to delete this artist?');">Delete This Artist</button>
+                        </form>
                     </li>
                 <% }); %>
             </ul>

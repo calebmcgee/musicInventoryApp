@@ -1,15 +1,27 @@
 const db = require('../db/queries');
 const {body, matchedData, validationResult } = require('express-validator');
 
-// Get
+// Get all artists
 async function getAllArtists(req, res) {
     res.render("artists", {title: "Artists", artists: await db.getAllArtists()});
 }
 // Delete all artists
 async function deleteAllArtists(req, res) {
     await db.deleteAllArtists();
+    res.redirect("/");
+}
+
+async function deleteArtist(req, res) {
+    const artistId = parseInt(req.params.artistId);
+    await db.deleteArtist(artistId);
     res.redirect("/artists");
 }
+// Get artist info
+async function getArtist(req, res){
+    const artistId = req.params.artistId;
+    res.render('artistInfo', { artist: await db.getArtist(artistId), songs: []});
+}
+
 // Create New Artist
 const validateArtist = [
     body("name").trim()
@@ -36,5 +48,7 @@ const postArtist = [
 module.exports = {
     getAllArtists,
     deleteAllArtists,
-    postArtist
+    deleteArtist,
+    postArtist,
+    getArtist
 };
