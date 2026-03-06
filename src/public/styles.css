@@ -14,7 +14,7 @@
 
 /* Display Containers */
 .listContainer {
-    padding: 10px;
+    padding: 20px;
 }
 .list {
     display: flex;
@@ -26,4 +26,11 @@
     border: 1px solid black;
     display: flex;
     gap: 20px;
+}
+
+/* */
+#newArtistForm {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
 }

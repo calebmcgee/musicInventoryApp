@@ -4,7 +4,7 @@ const artistsRouter = Router();
 
 artistsRouter.get('/', getAllArtists);
 
-artistsRouter.post('/createArtist', postArtist);
+artistsRouter.post('/', postArtist);
 
 artistsRouter.post('/deleteAllArtists', deleteAllArtists);
 

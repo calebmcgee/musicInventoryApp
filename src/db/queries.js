@@ -8,7 +8,7 @@ async function getAllSongs(){
 }
 //Artists
 async function createArtist(name, city) {
-    await pool.query(`INSERT INTO artist (name, city) VALUES ($1, $2);`,[name, city]);
+    await pool.query(`INSERT INTO artists (name, city) VALUES ($1, $2);`,[name, city]);
 }
 
 async function getAllArtists(){
@@ -18,6 +18,10 @@ async function getAllArtists(){
 
 async function deleteAllArtists(){
     await pool.query("DELETE FROM artists");
+}
+
+async function deleteArtist(id){
+    await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);
 }
 
 //Albums 
@@ -31,6 +35,7 @@ module.exports = {
     getAllArtists,
     getAllSongs,
     createArtist,
-    deleteAllArtists
+    deleteAllArtists,
+    deleteArtist
 };
 

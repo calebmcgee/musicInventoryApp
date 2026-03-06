@@ -22,10 +22,10 @@ const postArtist = [
     async (req, res) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.status(400).render("artists",{
+            return res.status(400).render("artists", {
                 title: "Artists",
-                errors: errors.array(),
                 artists: await db.getAllArtists(),
+                errors: errors.array()
             });
         }
         const { name, city } = matchedData(req);

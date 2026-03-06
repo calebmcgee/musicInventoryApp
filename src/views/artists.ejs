@@ -10,15 +10,16 @@
     <h1><%= title %></h1>
     <%- include('partials/navbar'); %>
     <%- include('partials/errors') %>
+
     <div>
-        <form action="/artists/createArtist" method="POST">
+        <form id="newArtistForm" action="/artists" method="POST">
             <div class="labelDiv">
-                <label for="name">Artist</label>
-                <input name="name" type="text">
+                <label for="artistName">Artist</label>
+                <input name="name" id="artistName" type="text" autocomplete="off">
             </div>
             <div class="labelDiv">
-                <label for="city">City</label>
-                <input name="city" type="text">
+                <label for="artistCity">City</label>
+                <input name="city" id="artistCity" type="text" autocomplete="off">
             </div>
             <button type="submit">Create New Artist</button>
         </form>
