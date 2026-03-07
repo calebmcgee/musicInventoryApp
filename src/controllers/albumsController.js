@@ -14,9 +14,10 @@ async function deleteAlbum(req, res){
 const albumValidator = [
     body("name").trim()
     .notEmpty().withMessage("Must enter value for album name."),
-    body("artistId").trim(),
-    body("dateReleased").trim()
+    body("artistId"),
+    body("dateReleased")
 ];
+
 const createAlbum = [
     albumValidator,
     async (req, res)=> {
@@ -30,8 +31,8 @@ const createAlbum = [
             });
         }
         const { name, artistId, dateReleased } = matchedData(req);
-        await db.createAlbum(name, dateReleased, artistId);
-        res.redirect("/");
+        await db.createAlbum(name, dateReleased, parseInt(artistId));
+        res.redirect("/albums");
 }];
 
 module.exports = {

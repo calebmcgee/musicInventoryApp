@@ -38,7 +38,14 @@ async function getAllAlbums(){
 }
 
 async function getAllAlbumArtists(){
-    const { rows } = await pool.query(`SELECT * FROM album_artists WHERE `)
+    const { rows } = await pool.query(
+        `SELECT albums.id, albums.name, albums.date_released, artists.name AS artist
+        FROM albums
+        JOIN album_artists ON album.id = album_artists.album_id,
+        JOIN artists ON artists.id = album_artists.artist_id
+        `
+    );
+    return rows;
 }
 
 async function createAlbum(name, date, artistId) {
@@ -49,7 +56,7 @@ async function createAlbum(name, date, artistId) {
         [name, date]
     );
 
-    const albumId = rows[0];
+    const albumId = rows[0].id;
 
     await pool.query(
         `INSERT INTO album_artists (album_id, artist_id) 
