@@ -9,8 +9,45 @@
 <body>
     <h1><%= title %></h1>
     <%- include('partials/navbar'); %>
-    <div class="listContainer">
 
+    <div>
+        <%- include('partials/errors'); %>
+        <form id="albumForm" action="/albums" method="POST">
+            <div>
+                <label for="albumName">Album Name</label>
+                <input name="name" id="albumName" type="text" autocomplete="off">
+            </div>
+            <fieldset class="checkboxes">
+                <legend>Artists name</legend>
+                <% artists.forEach(artist => { %>
+                    <div class="labelDiv">
+                        <input type="checkbox" name="artistId" id="artist<%= artist.id %>" value="<%= artist.id %>">
+                        <label for="artist<%= artist.id %>"><%= artist.name %></label>
+                    </div>
+                <% }); %>
+            </fieldset>
+            <div>
+                <label for="date"></label>
+                <input type="date" name="dateReleased" id="date">
+            </div>
+            <button type="submit">Create new Album</button>
+        </form>
+    </div>
+
+    <h2>All Albums</h2>
+    <div class="listContainer">
+        <ul>
+            <% albums.forEach(album =>{ %>
+                <li>
+                    <p><%= album.name %></p>
+                    <p>Date Released: <%= album.date_released %></p>
+                    <p>Artist : <%= %></p>
+                    <form action="/albums/delete/<%= album.id %>" method="POST">
+                        <button>Delete This Album</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
     </div>
 </body>
 </html>

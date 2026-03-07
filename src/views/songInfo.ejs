@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= song.name %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <%- include('partials/navbar'); %>
+    <h1><%= song.name %></h1>
+    <h2>Artist</h2>
+    <h3>album</h3>
+    <p>Genre</p>
+    <p>Mood</p>
+    <p>Rating</p>
+
+
+    <div>
+        <form action="/songs/delete/<%= song.id %>" method="POST">
+            <button type="submit" onsubmit="return confirm('Are you sure you want to delete this song?');">Delete This Song</button>
+        </form>
+    </div>
+</body>
+</html>
