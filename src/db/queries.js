@@ -23,6 +23,13 @@ async function deleteAllArtists(){
 }
 
 async function deleteArtist(id){
+    // Delete the artist's albums
+    const { rows } = await pool.query(`SELECT * FROM album_artists WHERE artist_id = ($1);`, [id]);
+    
+    for (const row of rows){
+        await pool.query(`DELETE FROM albums WHERE id = ($1);`, [row.album_id]);
+    }
+    // Delete artist
     await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);
 }
 
@@ -47,7 +54,7 @@ async function getAllAlbumArtists(){
     return rows;
 }
 
-async function createAlbum(name, date, artistId) {
+async function createAlbum(name, date, artistList) {
     const { rows } = await pool.query(
         `INSERT INTO albums (name, date_released) 
         VALUES ($1, $2) 
@@ -56,20 +63,22 @@ async function createAlbum(name, date, artistId) {
     );
 
     const albumId = rows[0].id;
+    for (const id of artistList){
+        await pool.query(
+            `INSERT INTO album_artists (album_id, artist_id) 
+            VALUES ($1, $2);`,
+            [albumId, id]
+        );
+    };
 
-    await pool.query(
-        `INSERT INTO album_artists (album_id, artist_id) 
-        VALUES ($1, $2);`,
-        [albumId, artistId]
-    );
 }
 
 async function deleteAlbum(id){
-    await pool.query(`DELETE FROM albums WHERE id = ($1)`, [id]);
+    await pool.query(`DELETE FROM albums WHERE id = ($1);`, [id]);
 }
 
 async function getAlbum(id){
-    const { rows } = await pool.query(`SELECT * FROM album WHERE id = ($1)`, [id]);
+    const { rows } = await pool.query(`SELECT * FROM albums WHERE id = ($1)`, [id]);
     return rows[0];
 }
 
