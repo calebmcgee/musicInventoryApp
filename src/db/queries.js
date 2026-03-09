@@ -38,12 +38,11 @@ async function getAllAlbums(){
 }
 
 async function getAllAlbumArtists(){
-    const { rows } = await pool.query(
-        `SELECT albums.id, albums.name, albums.date_released, artists.name AS artist
+    const {rows} = await pool.query(
+        `SELECT albums.id, albums.name, albums.date_released, artists.name AS artists
         FROM albums
-        JOIN album_artists ON album.id = album_artists.album_id,
-        JOIN artists ON artists.id = album_artists.artist_id
-        `
+        JOIN album_artists ON albums.id = album_artists.album_id
+        JOIN artists ON artists.id = album_artists.artist_id`
     );
     return rows;
 }

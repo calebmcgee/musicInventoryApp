@@ -2,7 +2,21 @@ const { validationResult, body, matchedData } = require('express-validator');
 const db = require('../db/queries');
 
 async function getAllAlbums(req, res) {
-    res.render("albums", {title: "Albums", albums: await db.getAllAlbums(), artists: await db.getAllArtists()});
+    const albums = {};
+    const rows = await db.getAllAlbumArtists();
+    
+    rows.forEach(row =>{    
+        if(!albums[row.id]){
+            albums[row.id] = {
+                name : row.name,
+                date_released: row.date_released,
+                artists: []
+            }
+        }
+        albums[row.id].artists.push(row.artists);
+    });
+
+    res.render("albums", {title: "Albums", albums: Object.values(albums), artists: await db.getAllArtists()});
 }
 
 async function deleteAlbum(req, res){

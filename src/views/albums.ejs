@@ -41,7 +41,14 @@
                 <li>
                     <p><%= album.name %></p>
                     <p>Date Released: <%= album.date_released %></p>
-                    <p>Artist : <%= %></p>
+                    <p>Artists : 
+                        <% album.artists.forEach((artist, index)=>{ %>
+                            <%= artist %>
+                            <% if(index != album.artists.length - 1){ %>
+                                ,
+                            <% } %>
+                        <% }) %>
+                    </p>
                     <form action="/albums/delete/<%= album.id %>" method="POST">
                         <button>Delete This Album</button>
                     </form>
