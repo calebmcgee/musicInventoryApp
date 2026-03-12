@@ -22,15 +22,34 @@
     gap: 5px;
 }
 
-#albumFormContainer {
-    position: absolute;
-    right: 0px;
+#songContent {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+}
+#albumContent {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
 }
 /* Display Cards */
 .artistCard {
     border: 1px solid black;
     display: flex;
     gap: 20px;
+}
+
+.albumCard {
+    border: 1px solid black;
+    display: flex;
+    gap: 20px;
+}
+
+.songCard {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
 }
 
 /* Forms */

@@ -7,6 +7,38 @@ async function getAllSongs(){
     return rows;
 }
 
+async function createSong(name, albumId, rating, genre, artistId){
+    const { rows } = await pool.query(
+        `INSERT INTO songs (name, album_id, rating, genre) 
+        VALUES ($1, $2, $3, $4)
+        RETURNING id;`, [name, albumId, rating, genre]
+    );
+    const songId = rows[0].id;
+
+    for (const artist in artistId){
+        await pool.query(
+            `INSERT INTO song_artists (song_id, artist_id)
+            VALUES ($1, $2)`, [songId, artist]
+        );
+    }
+}
+
+async function deleteSong(id) {
+    await pool.query(`DELETE FROM songs WHERE id = ($1)`, [id]);
+    await pool.query(`DELETE FROM song_artists WHERE song_id = ($1)`, [id]);
+}
+
+async function getAllSongArtists() {
+    const { rows } = await pool.query(`
+        SELECT songs.id, songs.name, songs.rating, songs.genre, albums.name AS album, artists.name AS artists
+        FROM songs
+        JOIN song_artists ON songs.id = song_artists.song_id
+        JOIN artists ON song_artists.artist_id = artists.id
+        JOIN albums ON songs.album_id = albums.id`
+    );
+
+    return rows;
+}
 
 //Artists
 async function createArtist(name, city) {
@@ -23,12 +55,17 @@ async function deleteAllArtists(){
 }
 
 async function deleteArtist(id){
-    // Delete the artist's albums
+    // Delete the artist's albums + songs
     const { rows } = await pool.query(`SELECT * FROM album_artists WHERE artist_id = ($1);`, [id]);
+    //const { songRows } = await pool.query(`SELECT * FROM song_artists WHERE artist_id = ($1);`, [id]);
     
     for (const row of rows){
         await pool.query(`DELETE FROM albums WHERE id = ($1);`, [row.album_id]);
     }
+    // for (const row of songRows){
+    //     await pool.query(`DELETE FROM songs WHERE id = ($1);`, [row.song_id]);
+    // }
+
     // Delete artist
     await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);
 }
@@ -75,6 +112,8 @@ async function createAlbum(name, date, artistList) {
 
 async function deleteAlbum(id){
     await pool.query(`DELETE FROM albums WHERE id = ($1);`, [id]);
+    await pool.query(`DELETE FROM songs WHERE id = ($1);`, [id]);
+
 }
 
 async function getAlbum(id){
@@ -95,6 +134,10 @@ module.exports = {
     createAlbum,
     deleteAlbum,
     getAlbum,
-    getAllAlbumArtists
+    getAllAlbumArtists,
+    //songs
+    createSong,
+    deleteSong,
+    getAllSongArtists
 };
 

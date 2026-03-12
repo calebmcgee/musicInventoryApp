@@ -9,8 +9,75 @@
 <body>
     <h1><%= title %></h1>
     <%- include('partials/navbar'); %>
-    <div class="listContainer">
 
+    <div id="songContent">
+        <!-- DIV FOR EXISTING SONGS-->
+        <div id="listContainer">
+            <h2>Songs</h2>
+            <ul class="songList">
+                <% songs.forEach(song => { %>
+                    <li class="songCard">
+                        <p>Name: <%= song.name %></p>
+                        <p>Album: <%= song.album %></p>
+                        <p>Artists :
+                            <% song.artists.forEach((artist, index)=>{ %>
+                                <%= artist %>
+                                <% if(index != song.artists.length - 1){ %>
+                                    ,
+                                <% } %>
+                            <% }) %>
+                        </p>
+                        <p>Genre: <%= song.genre %></p>
+                        <p>Rating: <%= song.rating %></p>
+                        <p><a href="delete/<%= song.id %>"></a></p>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+        <!-- FORM FOR NEW SONG-->
+        <div id="albumFormContainer">
+            <%- include('partials/errors'); %>
+            <form id="songForm" action="/songs" method="POST">
+                <div>
+                    <label for="songName">Song Name</label>
+                    <input name="name" id="songName" type="text" autocomplete="off">
+                </div>
+                <fieldset class="checkboxes">
+                    <legend>Artists name</legend>
+                    <% artists.forEach(artist => { %>
+                        <div class="labelDiv">
+                            <input type="checkbox" name="artistId" id="artist<%= artist.id %>" value="<%= artist.id %>">
+                            <label for="artist<%= artist.id %>"><%= artist.name %></label>
+                        </div>
+                    <% }); %>
+                </fieldset>
+                <fieldset class="checkboxes">
+                    <legend>Albums</legend>
+                    <% albums.forEach(album => { %>
+                        <div class="labelDiv">
+                            <input type="checkbox" name="albumId" id="album<%= album.id %>" value="<%= album.id %>">
+                            <label for="album<%= album.id %>"><%= album.name %></label>
+                        </div>
+                    <% }); %>
+                </fieldset>
+                <fieldset class="checkboxes">
+                    <legend>Genre</legend>
+                        <div class="labelDiv">
+                            <input type="radio" name="genre" id="Rap/Hip-Hop" value="Rap/Hip-Hop">
+                            <label for="Rap/Hip-Hop">Rap/Hip-Hop</label>
+                        </div>
+                        <div class="labelDiv">
+                            <input type="radio" name="genre" id="r&b" value="R&B">
+                            <label for="r&b">R&B</label>
+                        </div>
+                </fieldset>
+                <div>
+                    <label for="rating">Rating</label>
+                    <input type="number" name="songRating" id="rating" max="10">
+                </div>
+                <button type="submit">Add Song</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

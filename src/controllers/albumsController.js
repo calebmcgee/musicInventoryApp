@@ -58,7 +58,7 @@ const createAlbum = [
                 }
                 albums[row.id].artists.push(row.artists);
             });
-            res.status(400).render("albums", {
+            return res.status(400).render("albums", {
                 title: "Albums", 
                 albums: Object.values(albums), 
                 artists: await db.getAllArtists(),
