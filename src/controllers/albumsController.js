@@ -66,7 +66,7 @@ const createAlbum = [
             });
         }
         const { name, artistId, dateReleased } = matchedData(req);
-        const artistList = [].concat(artistId || []).map(Number);
+        const artistList = [].concat(artistId).map(Number);
         await db.createAlbum(name, dateReleased, artistList);
         res.redirect("/albums");
 }];

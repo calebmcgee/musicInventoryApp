@@ -29,7 +29,11 @@
                         </p>
                         <p>Genre: <%= song.genre %></p>
                         <p>Rating: <%= song.rating %></p>
-                        <p><a href="delete/<%= song.id %>"></a></p>
+                        <div>
+                            <form action="/songs/delete/<%= song.id %>" method="POST">
+                                <button type="submit"> Delete Song</button>
+                            </form>
+                        </div>
                     </li>
                 <% }); %>
             </ul>
@@ -72,8 +76,8 @@
                         </div>
                 </fieldset>
                 <div>
-                    <label for="rating">Rating</label>
-                    <input type="number" name="songRating" id="rating" max="10">
+                    <label for="songRating">Rating</label>
+                    <input type="number" name="rating" id="songRating">
                 </div>
                 <button type="submit">Add Song</button>
             </form>

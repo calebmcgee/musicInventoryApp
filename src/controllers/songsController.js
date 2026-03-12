@@ -63,7 +63,7 @@ const createSong = [
         })
 
         if(!error.isEmpty){
-            res.status(400).render("songs", {
+            return res.status(400).render("songs", {
                 title: "Songs",
                 albums: await db.getAllAlbums(),
                 artists: await db.getAllArtists(),
@@ -71,16 +71,16 @@ const createSong = [
             }) 
         }
         const { name, albumId, artistId, genre, rating } = matchedData(req);
-        res.send(artistId);
-        const artistList = [].concat(Number(artistId) || artistId.map(id=>{Number(id)}));
-        //await db.createSong(name, albumId, rating, genre, artistList);
-        res.redirect('/');
+        const artistList = [].concat(artistId).map(Number);
+        await db.createSong(name, artistList, albumId, genre, rating);
+        res.redirect('/songs');
     
     }
 ]
 
-async function deleteSong(id) {
-    await db.deleteSong(id);
+async function deleteSong(req, res) {
+    await db.deleteSong(Number(req.params.id));
+    res.redirect('/songs');
 }
 
 module.exports = {

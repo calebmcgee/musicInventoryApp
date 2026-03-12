@@ -7,7 +7,7 @@ async function getAllSongs(){
     return rows;
 }
 
-async function createSong(name, albumId, rating, genre, artistId){
+async function createSong(name, artistId, albumId, genre, rating){
     const { rows } = await pool.query(
         `INSERT INTO songs (name, album_id, rating, genre) 
         VALUES ($1, $2, $3, $4)
@@ -15,7 +15,7 @@ async function createSong(name, albumId, rating, genre, artistId){
     );
     const songId = rows[0].id;
 
-    for (const artist in artistId){
+    for (const artist of artistId){
         await pool.query(
             `INSERT INTO song_artists (song_id, artist_id)
             VALUES ($1, $2)`, [songId, artist]
@@ -112,7 +112,7 @@ async function createAlbum(name, date, artistList) {
 
 async function deleteAlbum(id){
     await pool.query(`DELETE FROM albums WHERE id = ($1);`, [id]);
-    await pool.query(`DELETE FROM songs WHERE id = ($1);`, [id]);
+    await pool.query(`DELETE FROM songs WHERE album_id = ($1);`, [id]);
 
 }
 
