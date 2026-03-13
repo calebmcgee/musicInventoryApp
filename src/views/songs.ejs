@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1><%= title %></h1>
+    <h1 class="header"><%= title %></h1>
     <%- include('partials/navbar'); %>
 
     <div id="songContent">
         <!-- DIV FOR EXISTING SONGS-->
-        <div id="listContainer">
+        <div class="listContainer">
             <h2>Songs</h2>
             <ul class="songList">
                 <% songs.forEach(song => { %>

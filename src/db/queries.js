@@ -55,16 +55,20 @@ async function deleteAllArtists(){
 }
 
 async function deleteArtist(id){
-    // Delete the artist's albums + songs
-    const { rows } = await pool.query(`SELECT * FROM album_artists WHERE artist_id = ($1);`, [id]);
-    //const { songRows } = await pool.query(`SELECT * FROM song_artists WHERE artist_id = ($1);`, [id]);
-    
-    for (const row of rows){
-        await pool.query(`DELETE FROM albums WHERE id = ($1);`, [row.album_id]);
-    }
-    // for (const row of songRows){
-    //     await pool.query(`DELETE FROM songs WHERE id = ($1);`, [row.song_id]);
-    // }
+    // Delete the artist's albums
+    await pool.query(
+        `DELETE FROM albums
+        WHERE id IN (
+        SELECT album_id FROM album_artists WHERE artist_id = ($1)
+        )`, [id]
+    );
+    // Delete the artist's songs
+    await pool.query(
+        `DELETE FROM songs
+        WHERE id IN (
+        SELECT song_id FROM song_artists WHERE artist_id = ($1)
+        )`, [id]
+    );
 
     // Delete artist
     await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);

@@ -4,48 +4,79 @@
     margin: 0px;
 }
 
+body {
+    background-color: beige;
+}
+
 /* Partials */
 
 #navbar {
+    background-color: white;
     padding: 30px 0px;
     display: flex;
     justify-content: space-around;
 }
 
+.header {
+    text-align: center;
+    margin: 30px 0px;
+}
+
 /* Display Containers */
 .listContainer {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .list {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
+#indexContent {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 50px;
+}
 
 #songContent {
+    padding: 30px 20px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 20px 20px;
 }
 #albumContent {
+    padding: 30px 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+}
+#artistContent {
+    padding: 30px 20px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 20px;
 }
 /* Display Cards */
 .artistCard {
+    background-color: white;
     border: 1px solid black;
     display: flex;
     gap: 20px;
 }
 
 .albumCard {
+    background-color: white;
     border: 1px solid black;
     display: flex;
     gap: 20px;
 }
 
 .songCard {
+    background-color: white;
     border: 1px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

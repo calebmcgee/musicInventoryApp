@@ -7,8 +7,24 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1><%= title %></h1>
+    <h1 class="header"><%= title %></h1>
     <%- include('partials/navbar'); %>
-
+    <div id="indexContent">
+        <h2>Welcome To My Music Inventory App!</h2>
+        <div>
+            <h3>Summary</h3>
+            <p>This app enables you to store artists, albums and songs. To create these, please follow this order:</p>
+            <ol>
+                <li>Create an artist</li>
+                <li>Create an album using existing artists</li>
+                <li>Create a song using an existing album and artists</li>
+            </ol>
+        </div>
+        <div>
+            <h3>IMPORTANT !!! BE CAREFUL WHEN DELETING</h3>
+            <p>When deleting an artist, all their albums and songs will be deleted.</p>
+            <p>WHen deleting an album, all the songs in the album will be deleted.</p>
+        </div>
+    </div>
 </body>
 </html>

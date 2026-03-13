@@ -7,46 +7,49 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1><%= title %></h1>
+    <h1 class="header"><%= title %></h1>
     <%- include('partials/navbar'); %>
     <%- include('partials/errors') %>
 
-    <div>
-        <form class="inlineForm" action="/artists" method="POST">
-            <div class="labelDiv">
-                <label for="artistName">Artist</label>
-                <input name="name" id="artistName" type="text" autocomplete="off">
-            </div>
-            <div class="labelDiv">
-                <label for="artistCity">City</label>
-                <input name="city" id="artistCity" type="text" autocomplete="off">
-            </div>
-            <button type="submit">Create New Artist</button>
-        </form>
-    </div>
-
-    <h2>Artist List</h2>
-    <div class="listContainer">
-        <% if(artists) { %>
-            <ul class="list">
-                <% artists.forEach(artist => { %>
-                    <li class="artistCard">
-                        <p>Artist: <%= artist.name %></p>
-                        <p>Area: <%= artist.city %></p>
-                        <a href="/artists/<%= artist.id %>">View Info</a>
-                        <form action="/artists/delete/<%= artist.id %>" method="POST">
-                            <button type="submit" onsubmit="return confirm('Are you sure you want to delete this artist?');">Delete This Artist</button>
-                        </form>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } %>
-    </div>
-
+    <div id="artistContent">
+        <!-- DISPLAY ALL EXISTING ARTISTS-->
+        <div class="listContainer">
+            <h2>Artist List</h2>
+            <% if(artists) { %>
+                <ul class="list">
+                    <% artists.forEach(artist => { %>
+                        <li class="artistCard">
+                            <p>Artist: <%= artist.name %></p>
+                            <p>Area: <%= artist.city %></p>
+                            <a href="/artists/<%= artist.id %>">View Info</a>
+                            <form action="/artists/delete/<%= artist.id %>" method="POST">
+                                <button type="submit" onsubmit="return confirm('Are you sure you want to delete this artist?');">Delete This Artist</button>
+                            </form>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </div>
+        <!-- FORM FOR NEW ARTISTS-->
+        <div>
+            <form class="inlineForm" action="/artists" method="POST">
+                <div class="labelDiv">
+                    <label for="artistName">Artist</label>
+                    <input name="name" id="artistName" type="text" autocomplete="off">
+                </div>
+                <div class="labelDiv">
+                    <label for="artistCity">City</label>
+                    <input name="city" id="artistCity" type="text" autocomplete="off">
+                </div>
+                <button type="submit">Create New Artist</button>
+            </form>
+        </div>
     <div>
         <form action="/artists/deleteAllArtists" method="POST">
             <button type="submit" onsubmit="return confirm('Are you sure you want to delete all artists?');">Delete All Artists</button>
         </form>
     </div>
+    </div>
+
 </body>
 </html>
