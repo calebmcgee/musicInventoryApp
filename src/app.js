@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('node:path');
 const indexRouter = require('./routes/indexRouter');
@@ -6,7 +7,7 @@ const artistsRouter = require('./routes/artistsRouter');
 const albumsRouter = require('./routes/albumsRouter');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Serve static assets and Set views
 const assetsPath = path.join(__dirname, "/public");
