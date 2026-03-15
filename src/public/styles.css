@@ -73,25 +73,26 @@ a:hover {
 }
 /* Display Cards */
 .artistCard {
-    background-color: white;
-    border: 1px solid black;
     display: flex;
     gap: 20px;
 }
 
 .albumCard {
-    background-color: white;
-    border: 1px solid black;
     display: flex;
     gap: 20px;
 }
 
 .songCard {
-    background-color: white;
-    border: 1px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 10px;
+}
+
+.albumCard, .artistCard, .songCard {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px 5px;
+    padding: 5px 5px;
 }
 
 /* Forms */

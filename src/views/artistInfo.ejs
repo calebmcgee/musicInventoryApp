@@ -11,30 +11,33 @@
     <h1 class="header"><%= artist.name %></h1>
     <h2><%= artist.city %></h2>
 
-
-    <h2>Albums List</h2>
-    <div class="listContainer">
-        <% if(albums) { %>
-            <ul class="albumsList">
-                <% albums.forEach(album => { %>
-                    <li class="albumCard">
-                        <p>Album: <%= album.name %></p>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } %>
+    <div>
+        <h2>Albums List</h2>
+        <div class="listContainer">
+            <% if(albums) { %>
+                <ul class="list">
+                    <% albums.forEach(album => { %>
+                        <li class="albumCard">
+                            <p>Album: <%= album.name %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </div>
     </div>
-    <h2>Songs List</h2>
-    <div class="listContainer">
-        <% if(songs) { %>
-            <ul class="songsList">
-                <% songs.forEach(song => { %>
-                    <li class="songCard">
-                        <p>Song: <%= song.name %></p>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } %>
+    <div>
+        <h2>Songs List</h2>
+        <div class="list">
+            <% if(songs) { %>
+                <ul class="songsList">
+                    <% songs.forEach(song => { %>
+                        <li class="songCard">
+                            <p>Song: <%= song.name %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </div>
     </div>
 
     <div>
