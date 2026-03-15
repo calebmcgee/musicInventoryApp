@@ -9,7 +9,6 @@
 <body>
     <h1 class="header"><%= title %></h1>
     <%- include('partials/navbar'); %>
-    <%- include('partials/errors') %>
 
     <div id="artistContent">
         <!-- DISPLAY ALL EXISTING ARTISTS-->
@@ -31,8 +30,9 @@
             <% } %>
         </div>
         <!-- FORM FOR NEW ARTISTS-->
-        <div>
-            <form class="artistFormContainer" action="/artists" method="POST">
+        <div id="artistFormContainer">
+            <%- include('partials/errors') %>
+            <form action="/artists" method="POST">
                 <div class="labelDiv">
                     <label for="artistName">Artist</label>
                     <input name="name" id="artistName" type="text" autocomplete="off">

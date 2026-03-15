@@ -101,7 +101,7 @@ a:hover {
     gap: 10px;
 }
 
-form {
+#songFormContainer, #artistFormContainer, #albumFromContainer {
     padding: 20px;
     display: flex;
     flex-direction: column;
