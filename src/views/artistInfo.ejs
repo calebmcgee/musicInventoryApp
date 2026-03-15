@@ -8,17 +8,29 @@
 </head>
 <body>
     <%- include('partials/navbar'); %>
-    <h1><%= artist.name %></h1>
+    <h1 class="header"><%= artist.name %></h1>
     <h2><%= artist.city %></h2>
 
+
+    <h2>Albums List</h2>
+    <div class="listContainer">
+        <% if(albums) { %>
+            <ul class="albumsList">
+                <% albums.forEach(album => { %>
+                    <li class="albumCard">
+                        <p>Album: <%= album.name %></p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
+    </div>
     <h2>Songs List</h2>
     <div class="listContainer">
         <% if(songs) { %>
-            <ul class="list">
+            <ul class="songsList">
                 <% songs.forEach(song => { %>
                     <li class="songCard">
                         <p>Song: <%= song.name %></p>
-                        <p>Rating: <%= song.rating %></p>
                     </li>
                 <% }); %>
             </ul>

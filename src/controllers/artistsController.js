@@ -19,7 +19,11 @@ async function deleteArtist(req, res) {
 // Get artist info
 async function getArtist(req, res){
     const artistId = req.params.artistId;
-    res.render('artistInfo', { artist: await db.getArtist(artistId), songs: []});
+    res.render('artistInfo', { 
+        artist: await db.getArtist(artistId), 
+        songs: await db.getArtistSongs(artistId),
+        albums: await db.getArtistAlbums(artistId)
+    });
 }
 
 // Create New Artist

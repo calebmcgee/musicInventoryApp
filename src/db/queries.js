@@ -55,13 +55,6 @@ async function deleteAllArtists(){
 }
 
 async function deleteArtist(id){
-    // Delete the artist's albums
-    await pool.query(
-        `DELETE FROM albums
-        WHERE id IN (
-        SELECT album_id FROM album_artists WHERE artist_id = ($1)
-        )`, [id]
-    );
     // Delete the artist's songs
     await pool.query(
         `DELETE FROM songs
@@ -69,6 +62,14 @@ async function deleteArtist(id){
         SELECT song_id FROM song_artists WHERE artist_id = ($1)
         )`, [id]
     );
+    // Delete the artist's albums
+    await pool.query(
+        `DELETE FROM albums
+        WHERE id IN (
+        SELECT album_id FROM album_artists WHERE artist_id = ($1)
+        )`, [id]
+    );
+
 
     // Delete artist
     await pool.query(`DELETE FROM artists WHERE id = ($1)`, [id]);
@@ -77,6 +78,29 @@ async function deleteArtist(id){
 async function getArtist(id){
     const { rows } = await pool.query(`SELECT * FROM artists WHERE id = ($1)`, [id]);
     return rows[0];
+}
+
+async function getArtistSongs(id){
+    const { rows } = await pool.query(
+        `SELECT songs.name AS name 
+        FROM artists
+        JOIN song_artists ON artists.id = song_artists.artist_id
+        JOIN songs ON song_artists.song_id = songs.id
+        WHERE artists.id = ($1)`, [id]
+    );
+    return rows;
+}
+
+async function getArtistAlbums(id){
+    const { rows } = await pool.query(
+        `SELECT albums.name AS name 
+        FROM artists
+        JOIN album_artists ON artists.id = album_artists.artist_id
+        JOIN albums ON album_artists.album_id = albums.id
+        WHERE artists.id = ($1)`, [id]
+    );
+
+    return rows;
 }
 
 //Albums 
@@ -115,8 +139,9 @@ async function createAlbum(name, date, artistList) {
 }
 
 async function deleteAlbum(id){
-    await pool.query(`DELETE FROM albums WHERE id = ($1);`, [id]);
     await pool.query(`DELETE FROM songs WHERE album_id = ($1);`, [id]);
+    await pool.query(`DELETE FROM albums WHERE id = ($1);`, [id]);
+    
 
 }
 
@@ -134,6 +159,8 @@ module.exports = {
     deleteAllArtists,
     deleteArtist,
     getArtist,
+    getArtistSongs,
+    getArtistAlbums,
     //albums
     createAlbum,
     deleteAlbum,

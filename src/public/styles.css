@@ -5,23 +5,34 @@
 }
 
 body {
-    background-color: beige;
+    background-color: #E8DFCA;
 }
 
 /* Partials */
 
 #navbar {
-    background-color: white;
+    background-color: #AEBDCA;
     padding: 30px 0px;
     display: flex;
     justify-content: space-around;
 }
 
 .header {
+    background-color: #F5EFE6;
     text-align: center;
-    margin: 30px 0px;
+    padding: 30px 0px;
 }
-
+a {
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #AEBDCA;
+    color: black;
+    padding: 5px 5px;
+}
+a:hover {
+    background-color: #7895B2;
+}
 /* Display Containers */
 .listContainer {
     display: flex;
@@ -84,17 +95,18 @@ body {
 }
 
 /* Forms */
-.inlineForm {
+.artistFormContainer {
     padding: 20px;
     display: flex;
     gap: 10px;
 }
 
-#albumForm {
+form {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #AEBDCA;
 }
 
 .checkboxes {
